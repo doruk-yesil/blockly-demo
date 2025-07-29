@@ -51,7 +51,6 @@ import { pythonGenerator } from 'blockly/python'
 import { phpGenerator } from 'blockly/php'
 import { QBtn, QBtnToggle, QCard, QCardSection, QSplitter } from 'quasar'
 
-// Reactive refs
 const blocklyDiv = ref<HTMLDivElement>()
 const splitterModel = ref(60)
 const selectedLanguage = ref('javascript')
@@ -182,12 +181,8 @@ const toolbox = {
 // Initialize Blockly workspace
 const initBlockly = async () => {
   await nextTick()
-
   if (!blocklyDiv.value) return
-
-  // Define custom blocks before injecting workspace
   defineCustomBlocks()
-
   workspace = Blockly.inject(blocklyDiv.value, {
     toolbox: toolbox,
     theme: Blockly.Themes.Classic,
@@ -210,11 +205,7 @@ const initBlockly = async () => {
     sounds: false,
     oneBasedIndex: true,
   })
-
-  // Listen for workspace changes
   workspace.addChangeListener(generateCode)
-
-  // Add some sample blocks
   addSampleBlocks()
 }
 
@@ -345,7 +336,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
     const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
-
     const code = `db.${operation.toLowerCase()}(${table}, ${conditions})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -354,7 +344,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
     const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
-
     const code = `db.${operation.toLowerCase()}(${table}, ${conditions})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -363,7 +352,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
     const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
-
     const code = `$db->${operation.toLowerCase()}(${table}, ${conditions})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -374,7 +362,6 @@ const defineCustomBlocks = () => {
     const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
     const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || '{}'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'null'
-
     const code = `fetch(${url}, {method: '${method}', headers: ${headers}, body: ${body}})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -384,7 +371,6 @@ const defineCustomBlocks = () => {
     const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
     const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || '{}'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'None'
-
     const code = `requests.${method.toLowerCase()}(${url}, headers=${headers}, data=${body})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -394,7 +380,6 @@ const defineCustomBlocks = () => {
     const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
     const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || 'array()'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'null'
-
     const code = `curl_request('${method}', ${url}, ${headers}, ${body})`
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
@@ -405,7 +390,6 @@ const defineCustomBlocks = () => {
     const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
     const priority = block.getFieldValue('PRIORITY')
-
     const code = `emailService.send({to: ${to}, subject: ${subject}, body: ${body}, priority: '${priority}'})\n`
     return code
   }
@@ -415,7 +399,6 @@ const defineCustomBlocks = () => {
     const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
     const priority = block.getFieldValue('PRIORITY')
-
     const code = `send_email(to=${to}, subject=${subject}, body=${body}, priority='${priority}')\n`
     return code
   }
@@ -425,7 +408,6 @@ const defineCustomBlocks = () => {
     const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
     const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
     const priority = block.getFieldValue('PRIORITY')
-
     const code = `mail(${to}, ${subject}, ${body}, ['Priority' => '${priority}'])\n`
     return code
   }
@@ -435,7 +417,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
     const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
-
     let code = ''
     switch (operation) {
       case 'READ': code = `fs.readFileSync(${path}, 'utf8')`; break
@@ -450,7 +431,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
     const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
-
     let code = ''
     switch (operation) {
       case 'read': code = `open(${path}, 'r').read()`; break
@@ -465,7 +445,6 @@ const defineCustomBlocks = () => {
     const operation = block.getFieldValue('OPERATION')
     const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
     const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
-
     let code = ''
     switch (operation) {
       case 'read': code = `file_get_contents(${path})`; break
@@ -476,7 +455,6 @@ const defineCustomBlocks = () => {
     return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
 
-  // Code generators for validation
   javascriptGenerator.forBlock['validate_input'] = function (block: any, generator: any) {
     const input = generator.valueToCode(block, 'INPUT', generator.ORDER_ATOMIC || 0) || '""'
     const type = block.getFieldValue('TYPE')
@@ -549,9 +527,7 @@ const addSampleBlocks = () => {
 // Generate code based on selected language
 const generateCode = () => {
   if (!workspace) return
-
   let code = ''
-
   switch (selectedLanguage.value) {
     case 'javascript':
       code = javascriptGenerator.workspaceToCode(workspace)
@@ -563,32 +539,22 @@ const generateCode = () => {
       code = phpGenerator.workspaceToCode(workspace)
       break
   }
-
   generatedCode.value = code || '// No blocks connected'
 }
 
 // Run JavaScript code
 const runCode = () => {
   if (selectedLanguage.value !== 'javascript') return
-
   try {
     output.value = ''
-
-    // Capture console.log output
     const originalLog = console.log
     const logs: string[] = []
-
     console.log = (...args: any[]) => {
       logs.push(args.map(arg => String(arg)).join(' '))
       originalLog(...args)
     }
-
-    // Execute the code
     const result = eval(generatedCode.value)
-
-    // Restore console.log
     console.log = originalLog
-
     if (logs.length > 0) {
       output.value = logs.join('\n')
     } else if (result !== undefined) {
@@ -612,12 +578,9 @@ const clearWorkspace = () => {
 // Save workspace to localStorage
 const saveWorkspace = () => {
   if (!workspace) return
-
   const xml = Blockly.Xml.workspaceToDom(workspace)
   const xmlText = Blockly.Xml.domToText(xml)
   localStorage.setItem('blockly_workspace', xmlText)
-
-  // Show success message (you can integrate with Quasar notify here)
   console.log('Workspace saved!')
 }
 
@@ -634,7 +597,6 @@ const loadWorkspace = () => {
   }
 }
 
-// Lifecycle hooks
 onMounted(() => {
   initBlockly()
 })
