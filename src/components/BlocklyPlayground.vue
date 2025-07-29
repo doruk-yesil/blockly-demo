@@ -166,11 +166,14 @@ const toolbox = {
     },
     {
       kind: 'category',
-      name: 'User Management',
+      name: 'Custom Blocks',
       colour: '#FF6B35',
       contents: [
-        { kind: 'block', type: 'user_role_action' },
-        { kind: 'block', type: 'create_user' },
+        { kind: 'block', type: 'database_query' },
+        { kind: 'block', type: 'api_request' },
+        { kind: 'block', type: 'send_email' },
+        { kind: 'block', type: 'file_operation' },
+        { kind: 'block', type: 'validate_input' },
       ]
     },
   ]
@@ -217,102 +220,285 @@ const initBlockly = async () => {
 
 // Define custom user role block
 const defineCustomBlocks = () => {
-  // Define the user role action block
-  Blockly.Blocks['user_role_action'] = {
+  // 1. Database Query Block
+  Blockly.Blocks['database_query'] = {
     init: function () {
-      this.appendValueInput("USER_INPUT")
-        .setCheck("String")
-        .appendField("User")
       this.appendDummyInput()
-        .appendField("has role")
+        .appendField("Query database")
         .appendField(new Blockly.FieldDropdown([
-          ["customer", "CUSTOMER"],
-          ["manager", "MANAGER"],
-          ["admin", "ADMIN"]
-        ]), "ROLE")
-      this.appendStatementInput("DO")
-        .setCheck(null)
-        .appendField("do")
-      this.setInputsInline(true)
+          ["SELECT", "SELECT"],
+          ["INSERT", "INSERT"],
+          ["UPDATE", "UPDATE"],
+          ["DELETE", "DELETE"]
+        ]), "OPERATION")
+      this.appendValueInput("TABLE")
+        .setCheck("String")
+        .appendField("table")
+      this.appendValueInput("CONDITIONS")
+        .setCheck("String")
+        .appendField("where")
+      this.setOutput(true, "Array")
+      this.setColour('#2196F3')
+      this.setTooltip("Execute database operations")
+    }
+  }
+
+  // 2. API Request Block
+  Blockly.Blocks['api_request'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("API")
+        .appendField(new Blockly.FieldDropdown([
+          ["GET", "GET"],
+          ["POST", "POST"],
+          ["PUT", "PUT"],
+          ["DELETE", "DELETE"]
+        ]), "METHOD")
+      this.appendValueInput("URL")
+        .setCheck("String")
+        .appendField("to")
+      this.appendValueInput("HEADERS")
+        .setCheck("String")
+        .appendField("headers")
+      this.appendValueInput("BODY")
+        .setCheck("String")
+        .appendField("body")
+      this.setOutput(true, "String")
+      this.setColour('#FF9800')
+      this.setTooltip("Make HTTP API requests")
+    }
+  }
+
+  // 3. Email Notification Block
+  Blockly.Blocks['send_email'] = {
+    init: function () {
+      this.appendValueInput("TO")
+        .setCheck("String")
+        .appendField("Send email to")
+      this.appendValueInput("SUBJECT")
+        .setCheck("String")
+        .appendField("subject")
+      this.appendValueInput("BODY")
+        .setCheck("String")
+        .appendField("message")
+      this.appendDummyInput()
+        .appendField("priority")
+        .appendField(new Blockly.FieldDropdown([
+          ["low", "LOW"],
+          ["normal", "NORMAL"],
+          ["high", "HIGH"],
+          ["urgent", "URGENT"]
+        ]), "PRIORITY")
       this.setPreviousStatement(true, null)
       this.setNextStatement(true, null)
-      this.setColour('#FF6B35')
-      this.setTooltip("Execute actions based on user role")
-      this.setHelpUrl("")
+      this.setColour('#4CAF50')
+      this.setTooltip("Send email notifications")
     }
   }
 
-  // JavaScript code generator for the custom block
-  javascriptGenerator.forBlock['user_role_action'] = function (block: any, generator: any) {
-    const userInput = generator.valueToCode(block, 'USER_INPUT', generator.ORDER_ATOMIC || 0) || '""'
-    const role = block.getFieldValue('ROLE')
-    const statements = generator.statementToCode(block, 'DO')
-
-    const code = `// User role check
-if (${userInput} && "${role.toLowerCase()}" === "${role.toLowerCase()}") {
-  console.log("User " + ${userInput} + " has ${role.toLowerCase()} role");
-${statements}}
-`
-    return code
-  }
-
-  // Python code generator
-  pythonGenerator.forBlock['user_role_action'] = function (block: any, generator: any) {
-    const userInput = generator.valueToCode(block, 'USER_INPUT', generator.ORDER_ATOMIC || 0) || '""'
-    const role = block.getFieldValue('ROLE')
-    const statements = generator.statementToCode(block, 'DO')
-
-    const code = `# User role check
-if ${userInput} and "${role.toLowerCase()}" == "${role.toLowerCase()}":
-    print(f"User {${userInput}} has ${role.toLowerCase()} role")
-${statements}`
-    return code
-  }
-
-  // PHP code generator  
-  phpGenerator.forBlock['user_role_action'] = function (block: any, generator: any) {
-    const userInput = generator.valueToCode(block, 'USER_INPUT', generator.ORDER_ATOMIC || 0) || '""'
-    const role = block.getFieldValue('ROLE')
-    const statements = generator.statementToCode(block, 'DO')
-
-    const code = `// User role check
-if (${userInput} && "${role.toLowerCase()}" === "${role.toLowerCase()}") {
-    echo "User " . ${userInput} . " has ${role.toLowerCase()} role\\n";
-${statements}}
-`
-    return code
-  }
-
-  // Define a simple user management block
-  Blockly.Blocks['create_user'] = {
+  // 4. File System Block
+  Blockly.Blocks['file_operation'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField("Create user")
-        .appendField(new Blockly.FieldTextInput("username"), "USERNAME")
+        .appendField(new Blockly.FieldDropdown([
+          ["Read file", "READ"],
+          ["Write file", "WRITE"],
+          ["Delete file", "DELETE"],
+          ["Create folder", "MKDIR"]
+        ]), "OPERATION")
+      this.appendValueInput("PATH")
+        .setCheck("String")
+        .appendField("path")
+      this.appendValueInput("CONTENT")
+        .setCheck("String")
+        .appendField("content")
       this.setOutput(true, "String")
-      this.setColour('#4CAF50')
-      this.setTooltip("Create a new user with given username")
-      this.setHelpUrl("")
+      this.setColour('#9C27B0')
+      this.setTooltip("File system operations")
     }
   }
 
-  // Code generators for create_user block
-  javascriptGenerator.forBlock['create_user'] = function (block: any, generator: any) {
-    const username = block.getFieldValue('USERNAME')
-    const code = `"${username}"`
-    return [code, generator.ORDER_ATOMIC || 0]
+  // 5. Validation Block
+  Blockly.Blocks['validate_input'] = {
+    init: function () {
+      this.appendValueInput("INPUT")
+        .setCheck("String")
+        .appendField("Validate")
+      this.appendDummyInput()
+        .appendField("as")
+        .appendField(new Blockly.FieldDropdown([
+          ["email", "EMAIL"],
+          ["phone", "PHONE"],
+          ["credit card", "CREDIT_CARD"],
+          ["URL", "URL"],
+          ["IP address", "IP"],
+          ["date", "DATE"]
+        ]), "TYPE")
+      this.setOutput(true, "Boolean")
+      this.setColour('#FF5722')
+      this.setTooltip("Validate input formats")
+    }
   }
 
-  pythonGenerator.forBlock['create_user'] = function (block: any, generator: any) {
-    const username = block.getFieldValue('USERNAME')
-    const code = `"${username}"`
-    return [code, generator.ORDER_ATOMIC || 0]
+  // Code generators for database query
+  javascriptGenerator.forBlock['database_query'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
+    const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
+
+    const code = `db.${operation.toLowerCase()}(${table}, ${conditions})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
 
-  phpGenerator.forBlock['create_user'] = function (block: any, generator: any) {
-    const username = block.getFieldValue('USERNAME')
-    const code = `"${username}"`
-    return [code, generator.ORDER_ATOMIC || 0]
+  pythonGenerator.forBlock['database_query'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
+    const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
+
+    const code = `db.${operation.toLowerCase()}(${table}, ${conditions})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  phpGenerator.forBlock['database_query'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const table = generator.valueToCode(block, 'TABLE', generator.ORDER_ATOMIC || 0) || '""'
+    const conditions = generator.valueToCode(block, 'CONDITIONS', generator.ORDER_ATOMIC || 0) || '""'
+
+    const code = `$db->${operation.toLowerCase()}(${table}, ${conditions})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  // Code generators for API request
+  javascriptGenerator.forBlock['api_request'] = function (block: any, generator: any) {
+    const method = block.getFieldValue('METHOD')
+    const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
+    const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || '{}'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'null'
+
+    const code = `fetch(${url}, {method: '${method}', headers: ${headers}, body: ${body}})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  pythonGenerator.forBlock['api_request'] = function (block: any, generator: any) {
+    const method = block.getFieldValue('METHOD')
+    const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
+    const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || '{}'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'None'
+
+    const code = `requests.${method.toLowerCase()}(${url}, headers=${headers}, data=${body})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  phpGenerator.forBlock['api_request'] = function (block: any, generator: any) {
+    const method = block.getFieldValue('METHOD')
+    const url = generator.valueToCode(block, 'URL', generator.ORDER_ATOMIC || 0) || '""'
+    const headers = generator.valueToCode(block, 'HEADERS', generator.ORDER_ATOMIC || 0) || 'array()'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || 'null'
+
+    const code = `curl_request('${method}', ${url}, ${headers}, ${body})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  // Code generators for email
+  javascriptGenerator.forBlock['send_email'] = function (block: any, generator: any) {
+    const to = generator.valueToCode(block, 'TO', generator.ORDER_ATOMIC || 0) || '""'
+    const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
+    const priority = block.getFieldValue('PRIORITY')
+
+    const code = `emailService.send({to: ${to}, subject: ${subject}, body: ${body}, priority: '${priority}'})\n`
+    return code
+  }
+
+  pythonGenerator.forBlock['send_email'] = function (block: any, generator: any) {
+    const to = generator.valueToCode(block, 'TO', generator.ORDER_ATOMIC || 0) || '""'
+    const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
+    const priority = block.getFieldValue('PRIORITY')
+
+    const code = `send_email(to=${to}, subject=${subject}, body=${body}, priority='${priority}')\n`
+    return code
+  }
+
+  phpGenerator.forBlock['send_email'] = function (block: any, generator: any) {
+    const to = generator.valueToCode(block, 'TO', generator.ORDER_ATOMIC || 0) || '""'
+    const subject = generator.valueToCode(block, 'SUBJECT', generator.ORDER_ATOMIC || 0) || '""'
+    const body = generator.valueToCode(block, 'BODY', generator.ORDER_ATOMIC || 0) || '""'
+    const priority = block.getFieldValue('PRIORITY')
+
+    const code = `mail(${to}, ${subject}, ${body}, ['Priority' => '${priority}'])\n`
+    return code
+  }
+
+  // Code generators for file operations
+  javascriptGenerator.forBlock['file_operation'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
+    const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
+
+    let code = ''
+    switch (operation) {
+      case 'READ': code = `fs.readFileSync(${path}, 'utf8')`; break
+      case 'write': code = `fs.writeFileSync(${path}, ${content})`; break
+      case 'delete': code = `fs.unlinkSync(${path})`; break
+      case 'mkdir': code = `fs.mkdirSync(${path})`; break
+    }
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  pythonGenerator.forBlock['file_operation'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
+    const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
+
+    let code = ''
+    switch (operation) {
+      case 'read': code = `open(${path}, 'r').read()`; break
+      case 'write': code = `open(${path}, 'w').write(${content})`; break
+      case 'delete': code = `os.remove(${path})`; break
+      case 'mkdir': code = `os.makedirs(${path})`; break
+    }
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  phpGenerator.forBlock['file_operation'] = function (block: any, generator: any) {
+    const operation = block.getFieldValue('OPERATION')
+    const path = generator.valueToCode(block, 'PATH', generator.ORDER_ATOMIC || 0) || '""'
+    const content = generator.valueToCode(block, 'CONTENT', generator.ORDER_ATOMIC || 0) || '""'
+
+    let code = ''
+    switch (operation) {
+      case 'read': code = `file_get_contents(${path})`; break
+      case 'write': code = `file_put_contents(${path}, ${content})`; break
+      case 'delete': code = `unlink(${path})`; break
+      case 'mkdir': code = `mkdir(${path})`; break
+    }
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  // Code generators for validation
+  javascriptGenerator.forBlock['validate_input'] = function (block: any, generator: any) {
+    const input = generator.valueToCode(block, 'INPUT', generator.ORDER_ATOMIC || 0) || '""'
+    const type = block.getFieldValue('TYPE')
+
+    const code = `validator.is${type.toLowerCase().replace('_', '')}(${input})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  pythonGenerator.forBlock['validate_input'] = function (block: any, generator: any) {
+    const input = generator.valueToCode(block, 'INPUT', generator.ORDER_ATOMIC || 0) || '""'
+    const type = block.getFieldValue('TYPE')
+
+    const code = `validate_${type.toLowerCase()}(${input})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
+  }
+
+  phpGenerator.forBlock['validate_input'] = function (block: any, generator: any) {
+    const input = generator.valueToCode(block, 'INPUT', generator.ORDER_ATOMIC || 0) || '""'
+    const type = block.getFieldValue('TYPE')
+
+    const code = `filter_var(${input}, FILTER_VALIDATE_${type})`
+    return [code, generator.ORDER_FUNCTION_CALL || 0]
   }
 }
 
@@ -322,22 +508,37 @@ const addSampleBlocks = () => {
 
   const xml = Blockly.utils.xml.textToDom(`
     <xml>
-      <block type="user_role_action" x="50" y="50">
-        <value name="USER_INPUT">
-          <block type="create_user">
-            <field name="USERNAME">john_doe</field>
-          </block>
+      <block type="send_email" x="50" y="50">
+        <value name="TO">
+          <shadow type="text">
+            <field name="TEXT">user@example.com</field>
+          </shadow>
         </value>
-        <field name="ROLE">ADMIN</field>
-        <statement name="DO">
-          <block type="text_print">
-            <value name="TEXT">
-              <shadow type="text">
-                <field name="TEXT">Admin access granted!</field>
-              </shadow>
-            </value>
-          </block>
-        </statement>
+        <value name="SUBJECT">
+          <shadow type="text">
+            <field name="TEXT">Welcome!</field>
+          </shadow>
+        </value>
+        <value name="BODY">
+          <shadow type="text">
+            <field name="TEXT">Thank you for joining us.</field>
+          </shadow>
+        </value>
+        <field name="PRIORITY">NORMAL</field>
+      </block>
+      
+      <block type="database_query" x="50" y="200">
+        <field name="OPERATION">SELECT</field>
+        <value name="TABLE">
+          <shadow type="text">
+            <field name="TEXT">users</field>
+          </shadow>
+        </value>
+        <value name="CONDITIONS">
+          <shadow type="text">
+            <field name="TEXT">active = true</field>
+          </shadow>
+        </value>
       </block>
     </xml>
   `)
