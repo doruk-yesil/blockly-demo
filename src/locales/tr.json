@@ -1,0 +1,17 @@
+{
+  "categories": {
+    "logic": "Mantık",
+    "math": "Matematik",
+    "loops": "Döngüler",
+    "text": "Metin",
+    "lists": "Listeler",
+    "variables": "Değişkenler",
+    "functions": "Fonksiyonlar",
+    "custom": "Özel Bloklar"
+  },
+  "blocks": {
+    "math_sum_custom": "Topla",
+    "math_multiply_label": "Çarp:",
+    "math_multiply_tooltip": "Sayıları çarpar. Çarpı simgesine tıklayarak giriş ekleyebilirsin."
+  }
+}

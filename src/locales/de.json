@@ -1,0 +1,17 @@
+{
+  "categories": {
+    "logic": "Logik",
+    "math": "Mathematik",
+    "loops": "Schleifen",
+    "text": "Text",
+    "lists": "Listen",
+    "variables": "Variablen",
+    "functions": "Funktionen",
+    "custom": "Benutzerdefinierte Blöcke"
+  },
+  "blocks": {
+    "math_sum_custom": "Addieren",
+    "math_multiply_label": "Multiplizieren:",
+    "math_multiply_tooltip": "Multipliziert Zahlen. Klicke auf das Multiplikationssymbol, um weitere Eingaben hinzuzufügen."
+  }
+}

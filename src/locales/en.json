@@ -1,0 +1,17 @@
+{
+  "categories": {
+    "logic": "Logic",
+    "math": "Math",
+    "loops": "Loops",
+    "text": "Text",
+    "lists": "Lists",
+    "variables": "Variables",
+    "functions": "Functions",
+    "custom": "Custom Blocks"
+  },
+  "blocks": {
+    "math_sum_custom": "Add",
+    "math_multiply_label": "Multiply:",
+    "math_multiply_tooltip": "Multiplies numbers. Click the multiply sign to add more inputs."
+  }
+}

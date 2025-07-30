@@ -1,0 +1,17 @@
+{
+  "categories": {
+    "logic": "",
+    "math": "",
+    "loops": "",
+    "text": "",
+    "lists": "",
+    "variables": "",
+    "functions": "",
+    "custom": ""
+  },
+  "blocks": {
+    "math_sum_custom": "",
+    "math_multiply_label": "اضرب:",
+    "math_multiply_tooltip": "يضرب الأرقام. انقر على علامة الضرب لإضافة مدخلات."
+  }
+}
