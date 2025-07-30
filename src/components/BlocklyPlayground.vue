@@ -46,6 +46,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import * as Blockly from 'blockly'
+import * as Tr from 'blockly/msg/tr'
 import { javascriptGenerator } from 'blockly/javascript'
 import { pythonGenerator } from 'blockly/python'
 import { phpGenerator } from 'blockly/php'
@@ -56,6 +57,7 @@ const splitterModel = ref(60)
 const selectedLanguage = ref('javascript')
 const generatedCode = ref('')
 const output = ref('')
+Blockly.setLocale(Tr as any)
 
 let workspace: Blockly.WorkspaceSvg | null = null
 
@@ -63,7 +65,8 @@ let workspace: Blockly.WorkspaceSvg | null = null
 const languageOptions = [
   { label: 'JS', value: 'javascript' },
   { label: 'Python', value: 'python' },
-  { label: 'PHP', value: 'php' }
+  { label: 'PHP', value: 'php' },
+  { label: 'JSON', value: 'json' },
 ]
 
 // Blockly toolbox configuration
@@ -537,6 +540,10 @@ const generateCode = () => {
       break
     case 'php':
       code = phpGenerator.workspaceToCode(workspace)
+      break
+    case 'json':
+      const json = Blockly.serialization.workspaces.save(workspace)
+      code = JSON.stringify(json, null, 2)
       break
   }
   generatedCode.value = code || '// No blocks connected'
