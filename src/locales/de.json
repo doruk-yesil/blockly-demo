@@ -10,8 +10,21 @@
     "custom": "Benutzerdefinierte Blöcke"
   },
   "blocks": {
-    "math_sum_custom": "Addieren",
+    "main_title": "Hauptblock",
+    "main_tooltip": "Alle Aktionen sollten in diesen Block eingefügt werden.",
+    "main_return": "Ausgabe zurückgeben",
+    "math_sum_label": "Addieren:",
+    "math_sum_tooltip": "Addiert Zahlen. Du kannst weitere Eingabefelder hinzufügen, indem du auf das '+' klickst.",
     "math_multiply_label": "Multiplizieren:",
-    "math_multiply_tooltip": "Multipliziert Zahlen. Klicke auf das Multiplikationssymbol, um weitere Eingaben hinzuzufügen."
+    "math_multiply_tooltip": "Multipliziert Zahlen. Klicke auf das Multiplikationssymbol, um weitere Eingaben hinzuzufügen.",
+    "power_label": "Exponent:",
+    "power_tooltip": "Berechnet Basis hoch Exponent. Zum Beispiel: 2^3 = 8",
+    "text_input_label": "Text",
+    "contains": "enthält",
+    "not_contains": "enthält nicht",
+    "substring_label": "dieser:",
+    "text_check_tooltip": "Prüft, ob der Text eine bestimmte Zeichenfolge enthält.",
+    "length_label": "Länge",
+    "text_length_tooltip": "Gibt die Anzahl der Zeichen im Text zurück."
   }
 }

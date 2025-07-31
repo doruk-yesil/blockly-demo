@@ -10,8 +10,21 @@
     "custom": "Özel Bloklar"
   },
   "blocks": {
-    "math_sum_custom": "Topla",
+    "main_title": "Ana Blok",
+    "main_tooltip": "Tüm işlemler bu bloğun içine yerleştirilmelidir.",
+    "main_return": "Çıktı döndür",
+    "math_sum_label": "Topla:",
+    "math_sum_tooltip": "Sayıları toplar. '+' simgesine tıklayarak giriş ekleyebilirsin.",
     "math_multiply_label": "Çarp:",
-    "math_multiply_tooltip": "Sayıları çarpar. Çarpı simgesine tıklayarak giriş ekleyebilirsin."
+    "math_multiply_tooltip": "Sayıları çarpar. '+' simgesine tıklayarak giriş ekleyebilirsin.",
+    "power_label": "Üs:",
+    "power_tooltip": "Bir sayının üssünü alır. Örneğin: 2 üzeri(^) 3 = 8",
+    "text_input_label": "Metin",
+    "contains": "içerir",
+    "not_contains": "içermez",
+    "substring_label": "şunu:",
+    "text_check_tooltip": "Metnin belirli bir alt metni içerip içermediğini kontrol eder.",
+    "length_label": "uzunluk",
+    "text_length_tooltip": "Metnin karakter sayısını döndürür."
   }
 }

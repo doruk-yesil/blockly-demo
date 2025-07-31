@@ -10,8 +10,21 @@
     "custom": "Custom Blocks"
   },
   "blocks": {
-    "math_sum_custom": "Add",
+    "main_title": "Main Block",
+    "main_tooltip": "All actions should be placed inside this block.",
+    "main_return": "Return output",
+    "math_sum_label": "Add:",
+    "math_sum_tooltip": "Adds numbers. You can click the '+' icon to add more inputs.",
     "math_multiply_label": "Multiply:",
-    "math_multiply_tooltip": "Multiplies numbers. Click the multiply sign to add more inputs."
+    "math_multiply_tooltip": "Multiplies numbers. Click the multiply sign to add more inputs.",
+    "power_label": "Exponent:",
+    "power_tooltip": "Calculates base raised to the power of exponent. For example: 2^3 = 8",
+    "text_input_label": "Text",
+    "contains": "contains",
+    "not_contains": "does not contain",
+    "substring_label": "this:",
+    "text_check_tooltip": "Checks whether the text contains a specific substring.",
+    "length_label": "length",
+    "text_length_tooltip": "Returns the number of characters in the text."
   }
 }

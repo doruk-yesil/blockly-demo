@@ -14,8 +14,10 @@ export const getBlocklyLocale = async (langCode: string) => {
 
 import { i18n } from '../../i18n'
 import { defineMathBlocks } from './Math'
+import { defineCustomBlocks } from './Custom'
 
 defineMathBlocks()
+defineCustomBlocks()
 
 export const getToolbox = () => ({
   kind: 'categoryToolbox',
@@ -39,47 +41,18 @@ export const getToolbox = () => ({
       name: i18n.global.t('categories.math'),
       colour: '#5C68A6',
       contents: [
+        { kind: 'block', type: 'math_number' },
         { kind: 'block', type: 'math_sum_custom' },
         { kind: 'block', type: 'math_multiply_custom' },
         { kind: 'block', type: 'math_subtract_custom' },
         { kind: 'block', type: 'math_divide_custom' },
-        { kind: 'block', type: 'math_arithmetic' },
+        { kind: 'block', type: 'math_power_custom' },
         { kind: 'block', type: 'math_single' },
         { kind: 'block', type: 'math_number_property' },
         { kind: 'block', type: 'math_round' },
         { kind: 'block', type: 'math_modulo' },
-        { kind: 'block', type: 'math_constrain' },
-      ]
-    },
-    {
-      kind: 'category',
-      name: i18n.global.t('categories.loops'),
-      colour: '#5CA65C',
-      contents: [
-        { kind: 'block', type: 'controls_repeat_ext' },
-        { kind: 'block', type: 'controls_whileUntil' },
-        { kind: 'block', type: 'controls_for' },
-        { kind: 'block', type: 'controls_forEach' },
-        { kind: 'block', type: 'controls_flow_statements' },
-      ]
-    },
-    {
-      kind: 'category',
-      name: i18n.global.t('categories.math'),
-      colour: '#5C68A6',
-      contents: [
-        { kind: 'block', type: 'math_number' },
-        { kind: 'block', type: 'math_arithmetic' },
-        { kind: 'block', type: 'math_single' },
-        { kind: 'block', type: 'math_trig' },
-        { kind: 'block', type: 'math_constant' },
-        { kind: 'block', type: 'math_number_property' },
-        { kind: 'block', type: 'math_round' },
         { kind: 'block', type: 'math_on_list' },
-        { kind: 'block', type: 'math_modulo' },
-        { kind: 'block', type: 'math_constrain' },
-        { kind: 'block', type: 'math_random_int' },
-        { kind: 'block', type: 'math_random_float' },
+
       ]
     },
     {
@@ -97,7 +70,6 @@ export const getToolbox = () => ({
         { kind: 'block', type: 'text_getSubstring' },
         { kind: 'block', type: 'text_changeCase' },
         { kind: 'block', type: 'text_trim' },
-        { kind: 'block', type: 'text_print' },
         { kind: 'block', type: 'text_prompt_ext' },
       ]
     },
@@ -107,14 +79,12 @@ export const getToolbox = () => ({
       colour: '#745CA6',
       contents: [
         { kind: 'block', type: 'lists_create_with' },
-        { kind: 'block', type: 'lists_repeat' },
         { kind: 'block', type: 'lists_length' },
         { kind: 'block', type: 'lists_isEmpty' },
         { kind: 'block', type: 'lists_indexOf' },
         { kind: 'block', type: 'lists_getIndex' },
         { kind: 'block', type: 'lists_setIndex' },
         { kind: 'block', type: 'lists_getSublist' },
-        { kind: 'block', type: 'lists_split' },
         { kind: 'block', type: 'lists_sort' },
       ]
     },
@@ -123,6 +93,18 @@ export const getToolbox = () => ({
       name: i18n.global.t('categories.variables'),
       colour: '#A65C81',
       custom: 'VARIABLE'
+    },
+    {
+      kind: 'category',
+      name: i18n.global.t('categories.loops'),
+      colour: '#5CA65C',
+      contents: [
+        { kind: 'block', type: 'controls_repeat_ext' },
+        { kind: 'block', type: 'controls_whileUntil' },
+        { kind: 'block', type: 'controls_for' },
+        { kind: 'block', type: 'controls_forEach' },
+        { kind: 'block', type: 'controls_flow_statements' },
+      ]
     },
     {
       kind: 'category',

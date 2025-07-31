@@ -10,8 +10,21 @@
     "custom": ""
   },
   "blocks": {
-    "math_sum_custom": "",
+    "main_title": "الكتلة الرئيسية",
+    "main_tooltip": "يجب وضع جميع الأوامر داخل هذه الكتلة.",
+    "main_return": "إرجاع الناتج",
+    "math_sum_label": "اجمع:",
+    "math_sum_tooltip": "يُجمع الأرقام. انقر على رمز '+' لإضافة مدخلات إضافية.",
     "math_multiply_label": "اضرب:",
-    "math_multiply_tooltip": "يضرب الأرقام. انقر على علامة الضرب لإضافة مدخلات."
+    "math_multiply_tooltip": "يضرب الأرقام. انقر على علامة الضرب لإضافة مدخلات.",
+    "power_label": "الأس:",
+    "power_tooltip": "يحسب العدد المرفوع للأس. مثلاً: ٢ ^ ٣ = ٨",
+    "text_input_label": "النص",
+    "contains": "يحتوي على",
+    "not_contains": "لا يحتوي على",
+    "substring_label": "هذا:",
+    "text_check_tooltip": "يتحقق مما إذا كان النص يحتوي على جزء معين.",
+    "length_label": "الطول",
+    "text_length_tooltip": "يعيد عدد الأحرف في النص."
   }
 }

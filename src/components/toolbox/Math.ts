@@ -8,7 +8,7 @@ export const defineMathBlocks = () => {
       this.setHelpUrl('')
       this.setOutput(true, 'Number')
       this.setColour('#5C68A6')
-      this.setTooltip('Sayıları toplar. Artı simgesine tıklayarak giriş ekleyebilirsin.')
+      this.setTooltip(i18n.global.t('blocks.math_sum_tooltip'))
       this.updateShape_()
     },
 
@@ -49,7 +49,7 @@ export const defineMathBlocks = () => {
       }
       for (let i = 0; i < this.itemCount_; i++) {
         const input = this.appendValueInput('ADD' + i).setCheck('Number')
-        input.appendField(i === 0 ? 'Topla:' : '+')
+        input.appendField(i === 0 ? i18n.global.t('blocks.math_sum_label') : '+')
         if (this.itemCount_ > 2) {
           const minusIcon = 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#f0f0f0"/><path fill="rgb(80,80,80)" d="M19,13H5V11H19V13Z" /></svg>')
           input.appendField(new Blockly.FieldImage(minusIcon, 15, 15, '-', () => this.removeInput_(i)))
@@ -136,6 +136,22 @@ export const defineMathBlocks = () => {
       this.appendValueInput('A').setCheck('Number')
       this.appendDummyInput().appendField('÷')
       this.appendValueInput('B').setCheck('Number')
+    }
+  }
+  Blockly.Blocks['math_power_custom'] = {
+    init: function () {
+      this.appendValueInput('BASE')
+        .setCheck('Number')
+        .appendField(i18n.global.t('blocks.power_label'))
+      this.appendDummyInput()
+        .appendField('^')
+      this.appendValueInput('EXPONENT')
+        .setCheck('Number')
+      this.setInputsInline(true)
+      this.setOutput(true, 'Number')
+      this.setColour('#5C68A6')
+      this.setTooltip(i18n.global.t('blocks.power_tooltip'))
+      this.setHelpUrl('')
     }
   }
 
