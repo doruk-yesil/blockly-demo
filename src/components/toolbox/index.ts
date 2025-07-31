@@ -13,10 +13,14 @@ export const getBlocklyLocale = async (langCode: string) => {
 }
 
 import { i18n } from '../../i18n'
+import { defineLogicBlocks } from './Logic'
 import { defineMathBlocks } from './Math'
+import { defineTextBlocks } from './Text'
 import { defineCustomBlocks } from './Custom'
 
+defineLogicBlocks()
 defineMathBlocks()
+defineTextBlocks()
 defineCustomBlocks()
 
 export const getToolbox = () => ({
@@ -29,11 +33,23 @@ export const getToolbox = () => ({
       contents: [
         { kind: 'block', type: 'controls_if' },
         { kind: 'block', type: 'logic_compare' },
-        { kind: 'block', type: 'logic_operation' },
+        { kind: 'block', type: 'logic_operation_custom' },
         { kind: 'block', type: 'logic_negate' },
         { kind: 'block', type: 'logic_boolean' },
         { kind: 'block', type: 'logic_null' },
         { kind: 'block', type: 'logic_ternary' },
+      ]
+    },
+    {
+      kind: 'category',
+      name: i18n.global.t('categories.loops'),
+      colour: '#5CA65C',
+      contents: [
+        { kind: 'block', type: 'controls_repeat_ext' },
+        { kind: 'block', type: 'controls_whileUntil' },
+        { kind: 'block', type: 'controls_for' },
+        { kind: 'block', type: 'controls_forEach' },
+        { kind: 'block', type: 'controls_flow_statements' },
       ]
     },
     {
@@ -61,16 +77,14 @@ export const getToolbox = () => ({
       colour: '#5CA68D',
       contents: [
         { kind: 'block', type: 'text' },
-        { kind: 'block', type: 'text_join' },
+        { kind: 'block', type: 'text_join_custom' },
+        { kind: 'block', type: 'text_check_custom' },
         { kind: 'block', type: 'text_append' },
         { kind: 'block', type: 'text_length' },
         { kind: 'block', type: 'text_isEmpty' },
-        { kind: 'block', type: 'text_indexOf' },
-        { kind: 'block', type: 'text_charAt' },
         { kind: 'block', type: 'text_getSubstring' },
         { kind: 'block', type: 'text_changeCase' },
         { kind: 'block', type: 'text_trim' },
-        { kind: 'block', type: 'text_prompt_ext' },
       ]
     },
     {
@@ -93,18 +107,6 @@ export const getToolbox = () => ({
       name: i18n.global.t('categories.variables'),
       colour: '#A65C81',
       custom: 'VARIABLE'
-    },
-    {
-      kind: 'category',
-      name: i18n.global.t('categories.loops'),
-      colour: '#5CA65C',
-      contents: [
-        { kind: 'block', type: 'controls_repeat_ext' },
-        { kind: 'block', type: 'controls_whileUntil' },
-        { kind: 'block', type: 'controls_for' },
-        { kind: 'block', type: 'controls_forEach' },
-        { kind: 'block', type: 'controls_flow_statements' },
-      ]
     },
     {
       kind: 'category',
