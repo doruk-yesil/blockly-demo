@@ -69,28 +69,6 @@ const languageOptions = [
   { label: 'PHP', value: 'php' },
   { label: 'JSON', value: 'json' },
 ]
-const blocklyConfig = {
-  toolbox: getToolbox(),
-  theme: Blockly.Themes.Classic,
-  grid: {
-    spacing: 25,
-    length: 3,
-    colour: '#ccc',
-    snap: true
-  },
-  zoom: {
-    controls: true,
-    wheel: true,
-    startScale: 1.0,
-    maxScale: 3,
-    minScale: 0.3,
-    scaleSpeed: 1.2
-  },
-  trashcan: true,
-  scrollbars: true,
-  sounds: false,
-  oneBasedIndex: true,
-}
 
 let workspace: Blockly.WorkspaceSvg | null = null
 
@@ -103,7 +81,28 @@ const setBlocklyLocale = async (langCode: string) => {
       const xml = Blockly.Xml.workspaceToDom(workspace)
       workspace.dispose()
       await nextTick()
-      workspace = Blockly.inject(blocklyDiv.value!, { toolbox: getToolbox() })
+      workspace = Blockly.inject(blocklyDiv.value!, {
+        toolbox: getToolbox(),
+        theme: Blockly.Themes.Classic,
+        grid: {
+          spacing: 25,
+          length: 3,
+          colour: '#ccc',
+          snap: true
+        },
+        zoom: {
+          controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2
+        },
+        trashcan: true,
+        scrollbars: true,
+        sounds: false,
+        oneBasedIndex: true,
+      })
       Blockly.Xml.domToWorkspace(xml, workspace)
     }
   } catch (err) {
