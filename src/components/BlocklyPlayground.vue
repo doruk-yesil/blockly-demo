@@ -228,11 +228,16 @@ const runCode = () => {
 
 // Clear workspace
 const clearWorkspace = () => {
-  if (workspace) {
-    workspace.clear()
-    output.value = ''
+  if (!workspace) return
+  const blocks = workspace.getTopBlocks(true)
+  for (const block of blocks) {
+    if (block.type !== 'main') {
+      block.dispose(false, true)
+    }
   }
+  output.value = ''
 }
+
 
 // Save workspace to localStorage
 const saveWorkspace = () => {
