@@ -46,6 +46,8 @@
     "log": "Afficher dans la console",
     "do": "faire",
     "while": "tant que",
-    "object_for_each": "pour chaque clé dans l’objet"
+    "until": "jusqu'à",
+    "object_for_each": "pour chaque clé dans l’objet",
+    "ifEmpty": "Si vide"
   }
 }

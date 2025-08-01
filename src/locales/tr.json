@@ -46,6 +46,8 @@
     "log": "Logla",
     "do": "yap",
     "while": "iken",
-    "object_for_each": "nesnesinin her anahtarı için yap"
+    "until": "olmayana kadar",
+    "object_for_each": "nesnesinin her anahtarı için yap",
+    "ifEmpty": "Boş ise"
   }
 }

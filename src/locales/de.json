@@ -46,6 +46,8 @@
     "log": "Protokollieren",
     "do": "ausführen",
     "while": "während",
-    "object_for_each": "für jeden Schlüssel im Objekt"
+    "until": "bis",
+    "object_for_each": "für jeden Schlüssel im Objekt",
+    "ifEmpty": "Wenn leer"
   }
 }

@@ -56,6 +56,7 @@ export const getToolbox = () => ({
         { kind: 'block', type: 'logic_boolean' },
         { kind: 'block', type: 'logic_null' },
         { kind: 'block', type: 'logic_ternary' },
+        { kind: 'block', type: 'logic_if_empty_custom' },
       ]
     },
     {
@@ -65,8 +66,10 @@ export const getToolbox = () => ({
       contents: [
         { kind: 'block', type: 'controls_repeat_ext' },
         { kind: 'block', type: 'controls_whileUntil' },
+        { kind: 'block', type: 'loops_do_while_custom' },
         { kind: 'block', type: 'controls_for' },
         { kind: 'block', type: 'controls_forEach' },
+        { kind: 'block', type: 'object_for_each' },
         { kind: 'block', type: 'controls_flow_statements' },
       ]
     },

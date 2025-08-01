@@ -62,4 +62,16 @@ export const defineLogicBlocks = () => {
         }))
     }
   }
+  Blockly.Blocks['logic_if_empty_custom'] = {
+    init: function () {
+      this.appendValueInput('LEFT')
+        .setCheck(null)
+        .appendField(i18n.global.t('blocks.ifEmpty'))
+      this.appendValueInput('RIGHT')
+        .setCheck(null)
+      this.setInputsInline(true)
+      this.setOutput(true)
+      this.setColour('#5B80A5')
+    }
+  }
 }

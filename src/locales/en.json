@@ -46,6 +46,8 @@
     "log": "Log",
     "do": "do",
     "while": "while",
-    "object_for_each": "for each key in object"
+    "until": "until",
+    "object_for_each": "for each key in object",
+    "ifEmpty": "If empty"
   }
 }

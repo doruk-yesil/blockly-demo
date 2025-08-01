@@ -2,13 +2,19 @@ import * as Blockly from 'blockly'
 import { i18n } from '../../i18n'
 
 export const defineLoopBlocks = () => {
-  Blockly.Blocks['loops_do_while'] = {
+  Blockly.Blocks['loops_do_while_custom'] = {
     init: function () {
       this.appendStatementInput('DO')
         .appendField(i18n.global.t('blocks.do'))
-      this.appendValueInput('WHILE')
+      this.appendValueInput('COND')
         .setCheck('Boolean')
-        .appendField(i18n.global.t('blocks.while'))
+        .appendField(
+          new Blockly.FieldDropdown([
+            [i18n.global.t('blocks.while'), 'WHILE'],
+            [i18n.global.t('blocks.until'), 'UNTIL']
+          ]),
+          'MODE'
+        )
       this.setPreviousStatement(true)
       this.setNextStatement(true)
       this.setColour('#5CA65C')
