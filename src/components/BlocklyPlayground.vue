@@ -58,9 +58,9 @@ const generatedCode = ref('')
 const output = ref('')
 const selectedLang = ref('en');
 const supportedLanguages = [
-  { label: 'العربية', value: 'ar' },
   { label: 'English', value: 'en' },
   { label: 'Deutsch', value: 'de' },
+  { label: 'French', value: 'fr' },
   { label: 'Türkçe', value: 'tr' },
 ];
 const languageOptions = [
@@ -76,7 +76,7 @@ const setBlocklyLocale = async (langCode: string) => {
   try {
     const localeModule = await getBlocklyLocale(langCode)
     Blockly.setLocale(localeModule as any)
-    i18n.global.locale.value = langCode as "en" | "tr" | "ar" | "de"
+    i18n.global.locale.value = langCode as "de" | "en" | "fr" | "tr"
     if (workspace) {
       const xml = Blockly.Xml.workspaceToDom(workspace)
       workspace.dispose()

@@ -7,7 +7,8 @@
     "lists": "Lists",
     "variables": "Variables",
     "functions": "Functions",
-    "custom": "Custom Blocks"
+    "custom": "Custom Blocks",
+    "object": "Object"
   },
   "blocks": {
     "main_title": "Main Block",
@@ -31,6 +32,11 @@
     "text_join_tooltip": "Joins strings. Click the + icon to add more inputs.",
     "text_check_tooltip": "Checks whether the text contains a specific substring.",
     "length_label": "length",
-    "text_length_tooltip": "Returns the number of characters in the text."
+    "text_length_tooltip": "Returns the number of characters in the text.",
+    "object_define": "Define object",
+    "object_assign": "Assign element to object",
+    "object_set": "Set value to object key",
+    "object_get": "Get value of object key",
+    "object_delete": "Delete from object"
   }
 }

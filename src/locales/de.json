@@ -7,7 +7,8 @@
     "lists": "Listen",
     "variables": "Variablen",
     "functions": "Funktionen",
-    "custom": "Benutzerdefinierte Blöcke"
+    "custom": "Benutzerdefinierte Blöcke",
+    "object": "Objekt"
   },
   "blocks": {
     "main_title": "Hauptblock",
@@ -31,6 +32,11 @@
     "text_join_tooltip": "Verbindet Texte. Klicke auf das Plus-Symbol, um Eingaben hinzuzufügen.",
     "text_check_tooltip": "Prüft, ob der Text eine bestimmte Zeichenfolge enthält.",
     "length_label": "Länge",
-    "text_length_tooltip": "Gibt die Anzahl der Zeichen im Text zurück."
+    "text_length_tooltip": "Gibt die Anzahl der Zeichen im Text zurück.",
+    "object_define": "Objekt definieren",
+    "object_assign": "Element dem Objekt zuweisen",
+    "object_set": "Wert einem Objekt-Schlüssel zuweisen",
+    "object_get": "Wert des Objekt-Schlüssels holen",
+    "object_delete": "Aus Objekt löschen"
   }
 }

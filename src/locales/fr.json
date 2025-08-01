@@ -1,0 +1,7 @@
+{
+  "object_define": "Définir un objet",
+  "object_assign": "Assigner un élément à l’objet",
+  "object_set": "Définir la valeur de la clé de l’objet",
+  "object_get": "Obtenir la valeur de la clé de l’objet",
+  "object_delete": "Supprimer de l’objet"
+}

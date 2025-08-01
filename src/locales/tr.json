@@ -7,7 +7,8 @@
     "lists": "Listeler",
     "variables": "Değişkenler",
     "functions": "Fonksiyonlar",
-    "custom": "Özel Bloklar"
+    "custom": "Özel Bloklar",
+    "object": "Nesne"
   },
   "blocks": {
     "main_title": "Ana Blok",
@@ -31,6 +32,11 @@
     "text_join_tooltip": "Metinleri birleştirir. + işaretine tıklayarak giriş ekleyebilirsin.",
     "text_check_tooltip": "Metnin belirli bir alt metni içerip içermediğini kontrol eder.",
     "length_label": "uzunluk",
-    "text_length_tooltip": "Metnin karakter sayısını döndürür."
+    "text_length_tooltip": "Metnin karakter sayısını döndürür.",
+    "object_define": "Nesne tanımla",
+    "object_assign": "Nesneye eleman ata",
+    "object_set": "Nesne elemanına değer ata",
+    "object_get": "Nesne elemanı değerini getir",
+    "object_delete": "Nesneden sil"
   }
 }

@@ -1,11 +1,11 @@
 export const getBlocklyLocale = async (langCode: string) => {
   switch (langCode) {
-    case 'tr':
-      return await import('blockly/msg/tr')
-    case 'ar':
-      return await import('blockly/msg/ar')
     case 'de':
       return await import('blockly/msg/de')
+    case 'fr':
+      return await import('blockly/msg/fr')
+    case 'tr':
+      return await import('blockly/msg/tr')
     case 'en':
     default:
       return await import('blockly/msg/en')
@@ -17,15 +17,31 @@ import { defineLogicBlocks } from './Logic'
 import { defineMathBlocks } from './Math'
 import { defineTextBlocks } from './Text'
 import { defineCustomBlocks } from './Custom'
+import { defineObjectBlocks } from './Object'
 
 defineLogicBlocks()
 defineMathBlocks()
 defineTextBlocks()
 defineCustomBlocks()
+defineObjectBlocks()
 
 export const getToolbox = () => ({
   kind: 'categoryToolbox',
   contents: [
+    {
+      kind: 'category',
+      name: i18n.global.t('categories.variables'),
+      colour: '#FF6B35',
+      contents: [
+        { kind: 'block', type: 'controls_if' },
+        { kind: 'block', type: 'logic_compare' },
+        { kind: 'block', type: 'logic_operation_custom' },
+        { kind: 'block', type: 'logic_negate' },
+        { kind: 'block', type: 'logic_boolean' },
+        { kind: 'block', type: 'logic_null' },
+        { kind: 'block', type: 'logic_ternary' },
+      ]
+    },
     {
       kind: 'category',
       name: i18n.global.t('categories.logic'),
@@ -104,9 +120,15 @@ export const getToolbox = () => ({
     },
     {
       kind: 'category',
-      name: i18n.global.t('categories.variables'),
-      colour: '#A65C81',
-      custom: 'VARIABLE'
+      name: i18n.global.t('categories.object'),
+      colour: '#FFAB19',
+      contents: [
+        { kind: 'block', type: 'object_define' },
+        { kind: 'block', type: 'object_assign' },
+        { kind: 'block', type: 'object_set' },
+        { kind: 'block', type: 'object_get' },
+        { kind: 'block', type: 'object_delete' },
+      ]
     },
     {
       kind: 'category',
@@ -117,7 +139,7 @@ export const getToolbox = () => ({
     {
       kind: 'category',
       name: i18n.global.t('categories.custom'),
-      colour: '#FF6B35',
+      colour: '#000000',
       contents: [
         { kind: 'block', type: 'database_query' },
         { kind: 'block', type: 'api_request' },
