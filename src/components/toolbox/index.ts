@@ -16,14 +16,18 @@ import { i18n } from '../../i18n'
 import { defineLogicBlocks } from './Logic'
 import { defineMathBlocks } from './Math'
 import { defineTextBlocks } from './Text'
-import { defineCustomBlocks } from './Custom'
+import { defineOtherBlocks } from './Other'
 import { defineObjectBlocks } from './Object'
+import { defineVariablesBlocks } from './Variables'
+import { defineLoopBlocks } from './Loop'
 
 defineLogicBlocks()
 defineMathBlocks()
 defineTextBlocks()
-defineCustomBlocks()
+defineOtherBlocks()
 defineObjectBlocks()
+defineVariablesBlocks()
+defineLoopBlocks()
 
 export const getToolbox = () => ({
   kind: 'categoryToolbox',
@@ -33,13 +37,11 @@ export const getToolbox = () => ({
       name: i18n.global.t('categories.variables'),
       colour: '#FF6B35',
       contents: [
-        { kind: 'block', type: 'controls_if' },
-        { kind: 'block', type: 'logic_compare' },
-        { kind: 'block', type: 'logic_operation_custom' },
-        { kind: 'block', type: 'logic_negate' },
-        { kind: 'block', type: 'logic_boolean' },
-        { kind: 'block', type: 'logic_null' },
-        { kind: 'block', type: 'logic_ternary' },
+        { kind: 'block', type: 'variable_define_custom' },
+        { kind: 'block', type: 'constant_custom' },
+        { kind: 'block', type: 'variable_custom' },
+        { kind: 'block', type: 'variable_set_custom' },
+        { kind: 'block', type: 'variable_typeof_custom' },
       ]
     },
     {
@@ -138,7 +140,7 @@ export const getToolbox = () => ({
     },
     {
       kind: 'category',
-      name: i18n.global.t('categories.custom'),
+      name: i18n.global.t('categories.other'),
       colour: '#000000',
       contents: [
         { kind: 'block', type: 'database_query' },
@@ -146,6 +148,7 @@ export const getToolbox = () => ({
         { kind: 'block', type: 'send_email' },
         { kind: 'block', type: 'file_operation' },
         { kind: 'block', type: 'validate_input' },
+        { kind: 'block', type: 'log_custom' },
       ]
     },
   ]

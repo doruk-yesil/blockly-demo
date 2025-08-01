@@ -7,7 +7,7 @@
     "lists": "Lists",
     "variables": "Variables",
     "functions": "Functions",
-    "custom": "Custom Blocks",
+    "other": "Other",
     "object": "Object"
   },
   "blocks": {
@@ -37,6 +37,15 @@
     "object_assign": "Assign element to object",
     "object_set": "Set value to object key",
     "object_get": "Get value of object key",
-    "object_delete": "Delete from object"
+    "object_delete": "Delete from object",
+    "variable_define": "Define variable",
+    "constant": "Constant",
+    "variable": "Variable",
+    "variable_set": "Set variable",
+    "variable_typeof": "Type of variable",
+    "log": "Log",
+    "do": "do",
+    "while": "while",
+    "object_for_each": "for each key in object"
   }
 }

@@ -53,7 +53,7 @@ import { i18n } from '../i18n' // senin dosya yapına göre düzelt
 
 const blocklyDiv = ref<HTMLDivElement>()
 const splitterModel = ref(60)
-const selectedLanguage = ref('javascript')
+const selectedLanguage = ref('json')
 const generatedCode = ref('')
 const output = ref('')
 const selectedLang = ref('en');
@@ -64,10 +64,10 @@ const supportedLanguages = [
   { label: 'Türkçe', value: 'tr' },
 ];
 const languageOptions = [
+  { label: 'JSON', value: 'json' },
   { label: 'JS', value: 'javascript' },
   { label: 'Python', value: 'python' },
   { label: 'PHP', value: 'php' },
-  { label: 'JSON', value: 'json' },
 ]
 
 let workspace: Blockly.WorkspaceSvg | null = null

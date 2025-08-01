@@ -7,7 +7,7 @@
     "lists": "Listen",
     "variables": "Variablen",
     "functions": "Funktionen",
-    "custom": "Benutzerdefinierte Blöcke",
+    "other": "Andere",
     "object": "Objekt"
   },
   "blocks": {
@@ -37,6 +37,15 @@
     "object_assign": "Element dem Objekt zuweisen",
     "object_set": "Wert einem Objekt-Schlüssel zuweisen",
     "object_get": "Wert des Objekt-Schlüssels holen",
-    "object_delete": "Aus Objekt löschen"
+    "object_delete": "Aus Objekt löschen",
+    "variable_define": "Variable definieren",
+    "constant": "Konstante",
+    "variable": "Variable",
+    "variable_set": "Variable setzen",
+    "variable_typeof": "Datentyp der Variable",
+    "log": "Protokollieren",
+    "do": "ausführen",
+    "while": "während",
+    "object_for_each": "für jeden Schlüssel im Objekt"
   }
 }

@@ -7,7 +7,7 @@
     "lists": "Listeler",
     "variables": "Değişkenler",
     "functions": "Fonksiyonlar",
-    "custom": "Özel Bloklar",
+    "other": "Diğer",
     "object": "Nesne"
   },
   "blocks": {
@@ -37,6 +37,15 @@
     "object_assign": "Nesneye eleman ata",
     "object_set": "Nesne elemanına değer ata",
     "object_get": "Nesne elemanı değerini getir",
-    "object_delete": "Nesneden sil"
+    "object_delete": "Nesneden sil",
+    "variable_define": "Değişken tanımla",
+    "constant": "Sabit",
+    "variable": "Değişken",
+    "variable_set": "Değişkene ata",
+    "variable_typeof": "Veri Varlığı Türü",
+    "log": "Logla",
+    "do": "yap",
+    "while": "iken",
+    "object_for_each": "nesnesinin her anahtarı için yap"
   }
 }
