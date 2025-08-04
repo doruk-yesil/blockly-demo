@@ -1,10 +1,41 @@
 import * as Blockly from 'blockly'
 import { i18n } from '../../i18n'
-const variableDictionary = [
-  { name: 'client_id', type: 'string' },
-  { name: 'invoice_total', type: 'number' },
-  { name: 'is_active', type: 'boolean' }
-]
+
+class FieldVariableSelector extends Blockly.FieldDropdown {
+  static override fromJson(options: any) {
+    return new FieldVariableSelector(options['value']);
+  }
+  constructor(value: string = '') {
+    super(() => [['', '']]);
+    this.setValue(value || 'var');
+  }
+  override showEditor_() {
+    const e = new CustomEvent('open-variable-selector', {
+      detail: {
+        currentValue: this.getValue(),
+        field: this
+      }
+    });
+    window.dispatchEvent(e);
+  }
+  override setValue(newValue: string) {
+    const oldValue = this.getValue();
+    if (newValue === oldValue) return;
+    this.menuGenerator_ = [[newValue, newValue]];
+    super.setValue(newValue);
+    this.forceRerender();
+    if (this.sourceBlock_ && this.sourceBlock_.workspace) {
+      const event = new Blockly.Events.BlockChange(
+        this.sourceBlock_,
+        'field',
+        this.name || '',
+        oldValue,
+        newValue
+      );
+      Blockly.Events.fire(event);
+    }
+  }
+}
 
 export const defineVariablesBlocks = () => {
   Blockly.Blocks['variable_define_custom'] = {
@@ -93,7 +124,7 @@ export const defineVariablesBlocks = () => {
     init: function () {
       this.appendDummyInput()
         .appendField(i18n.global.t('blocks.variable_typeof'))
-        .appendField(new Blockly.FieldVariable('var'), 'VAR')
+        .appendField(new FieldVariableSelector(''), 'VAR')
       this.setOutput(true)
       this.setColour('#FF6B35')
     }

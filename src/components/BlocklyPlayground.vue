@@ -37,19 +37,41 @@
           </q-card>
         </div>
       </template>
+      <q-dialog v-model="variableDialog.visible" persistent>
+        <q-card style="min-width: 350px; max-height: 80vh; overflow: auto;">
+          <q-card-section>
+            <div class="text-h6">Değişken Seç</div>
+          </q-card-section>
+          <q-card-section>
+            <q-input v-model="variableDialog.search" dense outlined placeholder="Ara..." debounce="0" />
+            <q-list bordered separator class="q-mt-sm" style="max-height: 300px; overflow-y: auto;">
+              <q-item v-for="variable in filteredVariables" :key="variable.name" clickable v-ripple
+                :active="variableDialog.selected === variable.name" @click="variableDialog.selected = variable.name">
+                <q-item-section>{{ variable.name }}</q-item-section>
+                <q-item-section side class="text-caption text-grey">{{ variable.type }}</q-item-section>
+              </q-item>
+            </q-list>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="İptal" v-close-popup />
+            <q-btn flat label="Seç" color="primary" @click="applyVariableSelection"
+              :disable="!variableDialog.selected" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </q-splitter>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, watch, computed } from 'vue'
 import * as Blockly from 'blockly'
 import { javascriptGenerator } from 'blockly/javascript'
 import { pythonGenerator } from 'blockly/python'
 import { phpGenerator } from 'blockly/php'
 import { getToolbox, getBlocklyLocale } from './toolbox/index'
-import { QBtn, QBtnToggle, QCard, QCardSection, QSplitter, QSelect } from 'quasar'
-import { i18n } from '../i18n' // senin dosya yapına göre düzelt
+import { QBtn, QBtnToggle, QCard, QCardSection, QSplitter, QSelect, QDialog, QCardActions, QItem, QInput, QItemSection, QList } from 'quasar'
+import { i18n } from '../i18n'
 
 const blocklyDiv = ref<HTMLDivElement>()
 const splitterModel = ref(60)
@@ -57,6 +79,12 @@ const selectedLanguage = ref('json')
 const generatedCode = ref('')
 const output = ref('')
 const selectedLang = ref('en');
+const variableDialog = ref({
+  visible: false,
+  selected: '',
+  search: '',
+  targetField: null as Blockly.Field | null
+})
 const supportedLanguages = [
   { label: 'English', value: 'en' },
   { label: 'Deutsch', value: 'de' },
@@ -69,6 +97,17 @@ const languageOptions = [
   { label: 'Python', value: 'python' },
   { label: 'PHP', value: 'php' },
 ]
+const variableDictionary = [
+  { name: 'client_id', type: 'string' },
+  { name: 'invoice_total', type: 'number' },
+  { name: 'is_active', type: 'boolean' }
+]
+const filteredVariables = computed(() =>
+  variableDictionary.filter(v =>
+    v.name.toLowerCase().includes(variableDialog.value.search.toLowerCase())
+  )
+)
+
 
 let workspace: Blockly.WorkspaceSvg | null = null
 
@@ -262,7 +301,20 @@ const loadWorkspace = () => {
 
 onMounted(() => {
   initBlockly()
+  window.addEventListener('open-variable-selector', (e: any) => {
+    variableDialog.value.visible = true
+    variableDialog.value.selected = e.detail.currentValue
+    variableDialog.value.targetField = e.detail.field
+  })
 })
+
+const applyVariableSelection = () => {
+  const field = variableDialog.value.targetField
+  if (field && typeof field.setValue === 'function') {
+    field.setValue(variableDialog.value.selected)
+  }
+  variableDialog.value.visible = false
+}
 
 onUnmounted(() => {
   if (workspace) {

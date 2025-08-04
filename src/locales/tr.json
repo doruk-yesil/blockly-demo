@@ -42,7 +42,7 @@
     "constant": "Sabit",
     "variable": "Değişken",
     "variable_set": "Değişkene ata",
-    "variable_typeof": "Veri Varlığı Türü",
+    "variable_typeof": "Değişken Sözlüğü:",
     "log": "Logla",
     "do": "yap",
     "while": "iken",

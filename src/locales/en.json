@@ -42,7 +42,7 @@
     "constant": "Constant",
     "variable": "Variable",
     "variable_set": "Set variable",
-    "variable_typeof": "Type of variable",
+    "variable_typeof": "Variable Dictionary:",
     "log": "Log",
     "do": "do",
     "while": "while",
