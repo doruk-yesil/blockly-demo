@@ -1,18 +1,42 @@
 import * as Blockly from 'blockly'
 import { i18n } from '../../i18n'
+const variableDictionary = [
+  { name: 'client_id', type: 'string' },
+  { name: 'invoice_total', type: 'number' },
+  { name: 'is_active', type: 'boolean' }
+]
 
 export const defineVariablesBlocks = () => {
   Blockly.Blocks['variable_define_custom'] = {
     init: function () {
+      const customVarField = new Blockly.FieldVariable('var');
+      customVarField.setValidator(function (newValue: string) {
+        return newValue;
+      });
       this.appendValueInput('VALUE')
-        .appendField(i18n.global.t('blocks.variable_define'))
-        .appendField(new Blockly.FieldVariable('var'), 'VAR')
-        .appendField('=')
-      this.setPreviousStatement(true, null)
-      this.setNextStatement(true, null)
-      this.setColour('#FF6B35')
+        .appendField('Değişken tanımla')
+        .appendField(customVarField, 'VAR')
+        .appendField('=');
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour('#FF6B35');
+    },
+    customContextMenu: function (options: any[]) {
+      const varField = this.getField('VAR');
+      if (varField) {
+        options.push({
+          text: 'Rename variable...',
+          enabled: true,
+          callback: function () {
+            const newName = prompt('Enter new variable name:', varField.getValue());
+            if (newName && newName !== varField.getValue()) {
+              varField.setValue(newName);
+            }
+          }
+        });
+      }
     }
-  }
+  };
   Blockly.Blocks['constant_custom'] = {
     init: function () {
       this.typeDropdown = new Blockly.FieldDropdown([

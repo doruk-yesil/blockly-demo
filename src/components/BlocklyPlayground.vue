@@ -238,7 +238,6 @@ const clearWorkspace = () => {
   output.value = ''
 }
 
-
 // Save workspace to localStorage
 const saveWorkspace = () => {
   if (!workspace) return
