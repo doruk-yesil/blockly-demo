@@ -45,7 +45,7 @@ export const defineVariablesBlocks = () => {
         return newValue;
       });
       this.appendValueInput('VALUE')
-        .appendField('Değişken tanımla')
+        .appendField(i18n.global.t('blocks.variable_define'))
         .appendField(customVarField, 'VAR')
         .appendField('=');
       this.setPreviousStatement(true, null);
@@ -71,12 +71,12 @@ export const defineVariablesBlocks = () => {
   Blockly.Blocks['constant_custom'] = {
     init: function () {
       this.typeDropdown = new Blockly.FieldDropdown([
-        ['sayı', 'NUMBER'],
-        ['metin', 'TEXT'],
+        ['number', 'NUMBER'],
+        ['string', 'TEXT'],
         ['boolean', 'BOOLEAN']
       ], this.onTypeChange.bind(this));
       this.appendDummyInput('INPUT')
-        .appendField('Sabit')
+        .appendField(i18n.global.t('blocks.constant'))
         .appendField(this.typeDropdown, 'TYPE');
       this.getInput('INPUT').appendField(new Blockly.FieldNumber(0), 'VALUE');
       this.setOutput(true);
