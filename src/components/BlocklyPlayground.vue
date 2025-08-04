@@ -159,7 +159,7 @@ const initBlockly = async () => {
   if (!blocklyDiv.value) return
   defineMainBlock()
   workspace = Blockly.inject(blocklyDiv.value, {
-    toolbox: getToolbox(),
+    toolbox: getToolbox(workspace ?? undefined),
     theme: Blockly.Themes.Classic,
     grid: {
       spacing: 25,
@@ -182,6 +182,11 @@ const initBlockly = async () => {
   })
   workspace.addChangeListener(generateCode)
   addMainBlock()
+  workspace.addChangeListener((e) => {
+    if (e.type === Blockly.Events.VAR_CREATE || e.type === Blockly.Events.VAR_DELETE || e.type === Blockly.Events.VAR_RENAME) {
+      workspace?.updateToolbox(getToolbox(workspace))
+    }
+  })
 }
 
 // Define main user role block
