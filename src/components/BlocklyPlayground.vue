@@ -19,7 +19,8 @@
           </div>
           <q-card class="q-mb-md">
             <q-card-section class="q-pa-sm">
-              <pre class="code-output">{{ generatedCode }}</pre>
+              <pre v-if="selectedLanguage === 'json'" class="code-output">{{ generatedCode }}</pre>
+              <h6 v-else class="italic bold">Not Working...</h6>
             </q-card-section>
           </q-card>
           <div class="row q-gutter-sm">
@@ -95,7 +96,6 @@ const languageOptions = [
   { label: 'JSON', value: 'json' },
   { label: 'JS', value: 'javascript' },
   { label: 'Python', value: 'python' },
-  { label: 'PHP', value: 'php' },
 ]
 const variableDictionary = [
   { name: 'client_id', type: 'string' },
