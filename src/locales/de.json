@@ -48,6 +48,7 @@
     "while": "während",
     "until": "bis",
     "object_for_each": "für jeden Schlüssel im Objekt",
-    "ifEmpty": "Wenn leer"
+    "ifEmpty": "Wenn leer",
+    "type": "Typ"
   }
 }

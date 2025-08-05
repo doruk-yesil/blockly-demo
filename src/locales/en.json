@@ -48,6 +48,7 @@
     "while": "while",
     "until": "until",
     "object_for_each": "for each key in object",
-    "ifEmpty": "If empty"
+    "ifEmpty": "If empty",
+    "type": "Type"
   }
 }

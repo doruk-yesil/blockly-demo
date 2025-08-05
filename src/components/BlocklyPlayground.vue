@@ -69,7 +69,7 @@ import * as Blockly from 'blockly'
 import { javascriptGenerator } from 'blockly/javascript'
 import { pythonGenerator } from 'blockly/python'
 import { phpGenerator } from 'blockly/php'
-import { getToolbox, getBlocklyLocale } from './toolbox/index'
+import { getToolbox, getBlocklyLocale } from './toolbox/index' // defineVariablesBlocks'a gerek yok, index.ts zaten çağırıyor
 import { QBtn, QBtnToggle, QCard, QCardSection, QSplitter, QSelect, QDialog, QCardActions, QItem, QInput, QItemSection, QList } from 'quasar'
 import { i18n } from '../i18n'
 
@@ -108,7 +108,6 @@ const filteredVariables = computed(() =>
   )
 )
 
-
 let workspace: Blockly.WorkspaceSvg | null = null
 
 const setBlocklyLocale = async (langCode: string) => {
@@ -121,7 +120,7 @@ const setBlocklyLocale = async (langCode: string) => {
       workspace.dispose()
       await nextTick()
       workspace = Blockly.inject(blocklyDiv.value!, {
-        toolbox: getToolbox(),
+        toolbox: getToolbox(undefined), // getToolbox'a workspace argümanı geçildi
         theme: Blockly.Themes.Classic,
         grid: {
           spacing: 25,
@@ -142,6 +141,9 @@ const setBlocklyLocale = async (langCode: string) => {
         sounds: false,
         oneBasedIndex: true,
       })
+      if (workspace) {
+        workspace.updateToolbox(getToolbox(workspace));
+      }
       Blockly.Xml.domToWorkspace(xml, workspace)
     }
   } catch (err) {
@@ -153,13 +155,12 @@ watch(selectedLang, (newLang) => {
   setBlocklyLocale(newLang)
 })
 
-// Initialize Blockly workspace
 const initBlockly = async () => {
   await nextTick()
   if (!blocklyDiv.value) return
   defineMainBlock()
   workspace = Blockly.inject(blocklyDiv.value, {
-    toolbox: getToolbox(workspace ?? undefined),
+    toolbox: getToolbox(undefined),
     theme: Blockly.Themes.Classic,
     grid: {
       spacing: 25,
@@ -180,6 +181,9 @@ const initBlockly = async () => {
     sounds: false,
     oneBasedIndex: true,
   })
+  if (workspace) {
+    workspace.updateToolbox(getToolbox(workspace));
+  }
   workspace.addChangeListener(generateCode)
   addMainBlock()
   workspace.addChangeListener((e) => {
@@ -189,7 +193,6 @@ const initBlockly = async () => {
   })
 }
 
-// Define main user role block
 const defineMainBlock = () => {
   Blockly.Blocks['main_block'] = {
     init: function () {
@@ -208,7 +211,6 @@ const defineMainBlock = () => {
   }
 }
 
-// Add main block to get started
 const addMainBlock = () => {
   if (!workspace) return
   const xml = Blockly.utils.xml.textToDom(`
@@ -219,7 +221,6 @@ const addMainBlock = () => {
   Blockly.Xml.domToWorkspace(xml, workspace)
 }
 
-// Generate code based on selected language
 const generateCode = () => {
   if (!workspace) return
   const mainBlock = workspace.getTopBlocks(true).find(b => b.type === 'main_block')
@@ -237,6 +238,30 @@ const generateCode = () => {
         return phpGenerator.blockToCode(mainBlock)
       case 'json':
         const json = Blockly.serialization.workspaces.save(workspace)
+        if (json && json.variables) {
+          const variableTypeMap: { [id: string]: string } = {};
+          workspace.getAllBlocks(false).forEach(block => {
+            if (block.type === 'variable_define_custom') {
+              const varField = block.getField('VAR') as Blockly.FieldVariable;
+              const variableModel = varField.getVariable();
+              if (variableModel) {
+                const varId = variableModel.getId();
+                const varType = block.getFieldValue('VAR_TYPE');
+                if (varId && varType) {
+                  variableTypeMap[varId] = varType;
+                }
+              }
+            }
+          });
+
+          json.variables.forEach((variable: any) => {
+            if (variableTypeMap[variable.id]) {
+              variable.type = variableTypeMap[variable.id];
+            } else {
+              variable.type = 'unknown';
+            }
+          });
+        }
         return JSON.stringify(json, null, 2)
       default:
         return '// Dil desteklenmiyor'
@@ -245,7 +270,6 @@ const generateCode = () => {
   generatedCode.value = Array.isArray(mainCode) ? mainCode[0] : mainCode || '// Kod üretilmedi'
 }
 
-// Run JavaScript code
 const runCode = () => {
   if (selectedLanguage.value !== 'javascript') return
   try {
@@ -270,19 +294,17 @@ const runCode = () => {
   }
 }
 
-// Clear workspace
 const clearWorkspace = () => {
   if (!workspace) return
   const blocks = workspace.getTopBlocks(true)
   for (const block of blocks) {
-    if (block.type !== 'main') {
+    if (block.type !== 'main_block') {
       block.dispose(false, true)
     }
   }
   output.value = ''
 }
 
-// Save workspace to localStorage
 const saveWorkspace = () => {
   if (!workspace) return
   const xml = Blockly.Xml.workspaceToDom(workspace)
@@ -291,7 +313,6 @@ const saveWorkspace = () => {
   console.log('Workspace saved!')
 }
 
-// Load workspace from localStorage
 const loadWorkspace = () => {
   if (!workspace) return
 

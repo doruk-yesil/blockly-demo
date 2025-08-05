@@ -48,6 +48,7 @@
     "while": "iken",
     "until": "olmayana kadar",
     "object_for_each": "nesnesinin her anahtarı için yap",
-    "ifEmpty": "Boş ise"
+    "ifEmpty": "Boş ise",
+    "type": "Tür"
   }
 }

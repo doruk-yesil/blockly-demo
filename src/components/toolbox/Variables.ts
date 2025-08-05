@@ -44,13 +44,28 @@ export const defineVariablesBlocks = () => {
       customVarField.setValidator(function (newValue: string) {
         return newValue;
       });
+
+      this.typeDropdown = new Blockly.FieldDropdown([
+        ['number', 'NUMBER'],
+        ['string', 'TEXT'],
+        ['boolean', 'BOOLEAN'],
+        ['any', 'ANY']
+      ], this.onTypeChange.bind(this));
+
       this.appendValueInput('VALUE')
         .appendField(i18n.global.t('blocks.variable_define'))
         .appendField(customVarField, 'VAR')
+        .appendField(i18n.global.t('blocks.type') + ':')
+        .appendField(this.typeDropdown, 'VAR_TYPE')
         .appendField('=');
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour('#FF6B35');
+
+      this.onTypeChange(this.typeDropdown.getValue());
+    },
+    onTypeChange: function (newType: string) {
+      return newType;
     },
     customContextMenu: function (options: any[]) {
       const varField = this.getField('VAR');
