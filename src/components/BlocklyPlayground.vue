@@ -69,7 +69,7 @@ import * as Blockly from 'blockly'
 import { javascriptGenerator } from 'blockly/javascript'
 import { pythonGenerator } from 'blockly/python'
 import { phpGenerator } from 'blockly/php'
-import { getToolbox, getBlocklyLocale } from './toolbox/index' // defineVariablesBlocks'a gerek yok, index.ts zaten çağırıyor
+import { getToolbox, getBlocklyLocale } from './toolbox/index'
 import { QBtn, QBtnToggle, QCard, QCardSection, QSplitter, QSelect, QDialog, QCardActions, QItem, QInput, QItemSection, QList } from 'quasar'
 import { i18n } from '../i18n'
 
@@ -120,7 +120,7 @@ const setBlocklyLocale = async (langCode: string) => {
       workspace.dispose()
       await nextTick()
       workspace = Blockly.inject(blocklyDiv.value!, {
-        toolbox: getToolbox(undefined), // getToolbox'a workspace argümanı geçildi
+        toolbox: getToolbox(undefined),
         theme: Blockly.Themes.Classic,
         grid: {
           spacing: 25,
